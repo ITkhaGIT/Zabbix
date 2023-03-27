@@ -1,0 +1,56 @@
+zabbix_export:
+  version: '6.2'
+  date: '2023-03-27T12:07:13Z'
+  template_groups:
+    -
+      uuid: cd75bcf645814bd3958ff2a5e1642cfd
+      name: Templates/Websites
+  templates:
+    -
+      uuid: 83a02d28fef546c8bb3cd3a13c98e247
+      template: 'Check SSL'
+      name: 'Check SSL'
+      groups:
+        -
+          name: Templates/Websites
+      items:
+        -
+          uuid: f0289af0db744a5aa223e9ca9c1f87da
+          name: 'Check Websites'
+          key: 'system.run[/usr/lib/zabbix/externalscripts/checkssl.sh {$DOMAIN} {$PORT}]'
+          delay: 12h
+          history: 14d
+          value_type: FLOAT
+          triggers:
+            -
+              uuid: 67d739b03c5a4c1aa1a2a5011faf24a2
+              expression: 'change(/Check SSL/system.run[/usr/lib/zabbix/externalscripts/checkssl.sh {$DOMAIN} {$PORT}])<0'
+              name: 'Update certificate'
+              priority: INFO
+              manual_close: 'YES'
+            -
+              uuid: a368c3fa6f1d4877b9de2fc809e077ac
+              expression: 'last(/Check SSL/system.run[/usr/lib/zabbix/externalscripts/checkssl.sh {$DOMAIN} {$PORT}])<={$NOTIFYCATION}'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'last(/Check SSL/system.run[/usr/lib/zabbix/externalscripts/checkssl.sh {$DOMAIN} {$PORT}])>{$NOTIFYCATION}'
+              name: 'Validity period of the certificate'
+              priority: WARNING
+              manual_close: 'YES'
+            -
+              uuid: 9b0d5598054a4444a9fd87e3c49a963c
+              expression: 'last(/Check SSL/system.run[/usr/lib/zabbix/externalscripts/checkssl.sh {$DOMAIN} {$PORT}])<0'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'last(/Check SSL/system.run[/usr/lib/zabbix/externalscripts/checkssl.sh {$DOMAIN} {$PORT}])>0'
+              name: 'Сertificate expired'
+              priority: HIGH
+              manual_close: 'YES'
+      macros:
+        -
+          macro: '{$DOMAIN}'
+          value: example.com
+        -
+          macro: '{$NOTYFICATION}'
+          value: '15'
+        -
+          macro: '{$PORT}'
+          value: '443'
