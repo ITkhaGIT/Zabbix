@@ -23,6 +23,13 @@ if readlink /proc/$$/exe | grep -q "dash"; then
         exit 1
 fi
 
+if dpkg -s zabbix-agent >/dev/null 2>&1; then
+    echo "The Zabbix agent is installed on the system."
+else
+    echo "The Zabbix agent is not installed on the system."
+    exit 1
+fi
+
 CheckFile() {
 if [ ! -f "$1" ]; then
     sudo touch "$1"
