@@ -42,7 +42,7 @@ CheckFile "$zabbix_fullpath_psk"
 
 # Генерация PSK
 generate_psk() {
- CheckFile "$zabbix_psk"
+ CheckFile "$zabbix_fullpath_psk"
  openssl rand -hex 32 > $zabbix_fullpath_psk
 }
 generate_psk
