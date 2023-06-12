@@ -1,5 +1,6 @@
 #!/bin/bash
 PSK_Identity="PSK-$HOSTNAME"
+PSK=""
 
 # Переменные
 zabbix_conf="/etc/zabbix/zabbix_agentd.conf"
@@ -52,7 +53,15 @@ generate_psk() {
  CheckFile "$zabbix_fullpath_psk"
  openssl rand -hex 32 > $zabbix_fullpath_psk
 }
+
+if [ -z "$PSK" ]; then
 generate_psk
+else
+$PSK > $zabbix_fullpath_psk
+fi
+
+
+
 #
 
 # Установка PSK и идентификатора
