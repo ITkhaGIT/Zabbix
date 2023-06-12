@@ -2,8 +2,19 @@
 ## Использование
 Запустите следующую команду:
 ```
-sudo wget https://raw.githubusercontent.com/ITkhaGIT/Zabbix/main/Scripts/autoconfig_psk.sh && sudo bash autoconfig_psk.sh
+sudo wget https://raw.githubusercontent.com/ITkhaGIT/Zabbix/main/Scripts/autoconfig_psk.sh 
+
 ```
+Внесите измения в следующий файл `autoconfig_psk.sh` 
+Вы можете в переменной `PSK_Identity` Указать идентификатор PSK
+В переменной `PSK` указать ключ, если переменная пустаю будет автоматически сгенерирован ключ 
+
+Затем запустите следующую команду:
+```
+sudo bash autoconfig_psk.sh 
+
+```
+
 ## Описание:
 Скрипт `autoconfig_psk.sh` представляет собой bash-скрипт, который обеспечивает автоматическую настройку предварительно согласованного ключа (Pre-Shared Key, PSK) в Zabbix агенте. Скрипт имеет поле для редактирования, PSK_Identity, в котором можно указать имя PSK.
 
