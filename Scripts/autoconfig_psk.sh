@@ -57,8 +57,9 @@ generate_psk() {
 if [ -z "$PSK" ]; then
 generate_psk
 else
-$PSK > $zabbix_fullpath_psk
+echo "$PSK" > "$zabbix_fullpath_psk"
 fi
+
 
 
 
