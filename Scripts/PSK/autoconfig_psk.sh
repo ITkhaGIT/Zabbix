@@ -37,7 +37,7 @@ if [ ! -d "$1" ]; then
 CheckFolder "$zabbix_path_psk"
 zabbix_fullpath_psk="$zabbix_path_psk/$zabbix_psk"
 CheckFile "$zabbix_fullpath_psk"
-echo $zabbix_fullpath_psk
+
 
 
 # Генерация PSK
